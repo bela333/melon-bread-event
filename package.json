@@ -1,0 +1,29 @@
+{
+	"name": "melon-bread-event",
+	"version": "1.0.0",
+	"license": "MIT",
+	"type": "module",
+	"main": "dist/bot.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"start": "tsc && node dist/bot",
+		"command": "tsc && node dist/command",
+		"leaderboard": "tsc && node dist/leaderboard"
+	},
+	"dependencies": {
+		"@ltd/j-toml": "^1.12.2",
+		"discord.js": "^13.1.0",
+		"got": "^11.8.2",
+		"humanize-duration": "^3.27.0",
+		"level": "^7.0.0",
+		"luxon": "^2.0.2",
+		"zod": "^3.7.2"
+	},
+	"devDependencies": {
+		"@types/humanize-duration": "^3.25.1",
+		"@types/level": "^6.0.0",
+		"@types/luxon": "^2.0.0",
+		"typescript": "^4.3.5"
+	}
+}

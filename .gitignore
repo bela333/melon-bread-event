@@ -1,0 +1,4 @@
+settings.toml
+users/
+dist/
+node_modules

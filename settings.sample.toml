@@ -1,0 +1,143 @@
+# --- CONFIG BASICS ---
+# An ID is a number on Discord that uniquely represents something.
+# You can use Developer Mode to find the ID of something.
+#
+# How to enable developer mode:
+#     User settings (bottom right) → Advanced → Developer mode: ON
+#
+# How to find the ID of a server:
+#     Enable developer mode → Right-click server → Copy ID
+#
+# How to find the ID of a channel:
+#     Enable developer mode → Right-click channel → Copy ID
+#
+# How to find the ID of a role:
+#     Enable developer mode → Server settings (top left) → Roles → Right-click role → Copy ID
+# ---------------------
+
+# String - Your bot's token
+# Find it in https://discord.com/developers/applications
+# Your application → Bot → Token → Copy
+token = "###########################################################"
+
+# String (Server ID) - The ID of the server the event will be running on
+guild = "##################"
+
+# String (Command ID) - The ID of the baking command
+# If you haven't run `pnpm command register`, leave this blank for now, and add it after doing so
+# You can list the IDs of the commands on your server with `pnpm command list`
+command = "##################"
+
+# String (Text Channel ID) - The ID of the channel where the command is meant to be used
+commandChannel = "##################"
+
+# String (Text Channel ID) - The ID of the channel where milestones and resets are announced
+# Omit this or set it to false (no quotes) to disable
+announcementChannel = "##################"
+
+# String (Role ID) - The ID of the role that will be given to people who participate
+# Omit this or set it to false (no quotes) to disable
+rewardRole = "##################"
+
+
+# Settings related to the reset of baking pairs
+[reset]
+# Number - Seconds between each reset
+# 1 hour = 3,600 seconds
+# 1 day = 86,400 seconds
+# You can add an underscore (_) to separate thousands
+interval = 86_400
+
+# Date - When the interval starts
+# If this is in the future, it will count backwards
+# So really, this sets the offset of the reset
+# For instance, if a daily (86,400 seconds) reset started at 10 AM, then it will occur every day at 10 AM
+# Format: 2021-12-31T23:59:59Z
+# For a time zone, replace Z with a number like +08:00 (for UTC+8) or -07:00 (for UTC-7)
+start = 2021-08-16T00:00:00Z
+
+
+# Settings used by `pnpm command register`
+[registerCommand]
+
+# String - Name of the command to register
+# People will type this preceded by a slash to use the command, 32 characters max
+name = "bake"
+# String - Description of the command
+# This shows up in the Discord interface, 100 characters max
+description = "Sends a baking invitation. Only useable in the event channel."
+
+
+# Presentation-related settings
+[interactions]
+
+# String - URL to an image displayed alongside a successful invite
+successThumbnail = "https://cdn.discordapp.com/emojis/325661176140791808.png?v=1"
+
+# String - Emoji displayed next to the button
+# Omit this or set it to false (no quotes) to disable
+# For default emojis, write the emoji itself, such as 😂
+# For custom emojis, there is a special format
+# Type the emoji in the chat, then add \ before, and press enter, you should see it appear
+buttonEmoji = "<:MelonBread:325661176140791808>"
+
+# Plural String - Name of the "currency" (what we're baking)
+# "one" is singular, "other" is plural
+# Example: 1 Melon Bread / 1,250 Melon Breads
+[interactions.currency]
+one = "Melon Bread"
+other = "Melon Breads"
+
+# Plural String - Counter displayed under every embed
+# "one" is singular, "other" is plural
+# {num} gets replaced with the current count, with the currency name
+# Example: 4,544 Melon Breads have been baked in the name of the great Satania so far!
+[interactions.embedFooter]
+one = "{num} has been baked in the name of the great Satania so far!"
+other = "{num} have been baked in the name of the great Satania so far!"
+
+
+# Which number of Melon Breads should be deemed milestones
+# You can add a comment afterwards, or false (no quotes) for no comments
+[milestones]
+500 = false
+666 = "How devilish!"
+1000 = false
+1332 = "666 × 2"
+1500 = false
+1998 = "666 × 3"
+2000 = "We now have around 100kg of Melon Bread! Nobody can stop us!"
+2500 = false
+2664 = "666 × 4"
+3000 = false
+3330 = "666 × 5"
+3500 = false
+3664 = "We just beat 2018's baking event! (3,663 Melon breads were baked back then)"
+3996 = "666 × 6! So Awesome!"
+4000 = "We now have around 200kg of Melon Bread!"
+4440 = "666 × 6.666…! <:SataniaBully:368692705477525514>"
+4500 = false
+4662 = "666 × 7"
+5000 = false
+5328 = "666 × 8"
+5500 = false
+5994 = "666 × 9"
+6000 = "We are approaching a truly devilish goal~"
+6500 = false
+6666 = "My followers never fail to make me proud! Thank you, everyone, for your hard work and devotion, I promise I won't forget about this when I become the supreme ruler of the world!"
+6969 = "nice."
+7000 = false
+7326 = "666 × 11"
+7500 = false
+7992 = "666 × 12"
+8000 = "That's about 400kg of Melon Bread!"
+8658 = "666 × 13"
+8880 = "666 × 6.666… × 2"
+9000 = "it's over 9,000!"
+9156 = "We have baked the most Melon Breads we ever did, beating the record of 2020 of 9,155 Melon Breads. Congratulations everyone!"
+9324 = "666 × 14"
+9500 = false
+9990 = "666 × 15"
+9999 = "Getting clooooose~"
+10000 = "I had never expected we would ever reach a 5-digit Melon Bread count. Thank you, everyone, you are truly outstanding! ♥"
+10500 = "There are no milestones after this, so <@216968594662227968> better get on it."
