@@ -21,7 +21,7 @@ export function updateTotal() {
 	totalBaked = 0;
 
 	for (const [id, user] of users) {
-		totalBaked += user.points / 2;
+		totalBaked += user.points;
 	}
 }
 
@@ -34,7 +34,7 @@ function loadDatabase() {
 				const user = User.parse(value);
 				const id = z.string().parse(key);
 
-				totalBaked += user.points / 2;
+				totalBaked += user.points;
 				users.set(id, user);
 			})
 			.on("error", reject)
@@ -83,6 +83,5 @@ export function getAccount(id: string) {
 		user.resetAt = nextReset().toMillis();
 		user.received = [];
 	}
-
 	return user;
 }

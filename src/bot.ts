@@ -18,7 +18,7 @@ async function announceReset(): Promise<Discord.Message | undefined> {
 
 	if (typeof announcementChannel === "object") {
 		return announcementChannel.send(
-			"**Baking pairs have been reset!** Everyone can now bake with anyone again!"
+			"**Stealing pairs have been reset!** Everyone can now steal with anyone again!"
 		);
 	}
 }

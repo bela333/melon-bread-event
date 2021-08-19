@@ -1,6 +1,6 @@
 import Discord, { DiscordAPIError } from "discord.js";
 import settings from "./settings.js";
-import { formatCurrency, pluralCurrency, pluralFooter } from "./utils/text.js";
+import { formatCurrency, formatPair, pluralCurrency, pluralFooter } from "./utils/text.js";
 import { humanTimeUntilReset, nextReset } from "./utils/resets.js"
 import { TemporarySet } from "./utils/temporary-set.js";
 import { getAccount, saveUser, totalBaked, updateTotal } from "./db.js";
@@ -15,7 +15,7 @@ async function checkMilestone(inviter: Discord.GuildMember, partner: Discord.Gui
 		const announcementChannel = await inviter.client.channels.fetch(settings.announcementChannel);
 
 		if (announcementChannel instanceof Discord.TextChannel) {
-			let content = `Congratulations to ${inviter} and ${partner} for baking the **${formatCurrency(totalBaked, true)}!**`;
+			let content = `Congratulations to ${inviter} and ${partner} for stealing the **${formatPair(totalBaked)}!**`;
 
 			if (milestone !== false) {
 				content += ` (${milestone})`;
@@ -96,9 +96,9 @@ export default async function handleInteraction(interaction: Discord.Interaction
 	const embed = new Discord.MessageEmbed({
 		color: 0xFFB100,
 		author: {
-			name: `${inviter.displayName} is looking for someone to bake with!`
+			name: `${inviter.displayName} is looking for someone to steal melon bread with!`
 		},
-		description: `Bake with them, and you will both get **${formatCurrency(1)}**!`,
+		description: `Go on a heist with them, and you will both get **${formatCurrency(1)}**!`,
 		footer: {
 			text: pluralFooter(totalBaked),
 		},
@@ -118,8 +118,8 @@ export default async function handleInteraction(interaction: Discord.Interaction
 	}
 
 	const button = new Discord.MessageButton()
-		.setCustomId("bake")
-		.setLabel("Let's bake!")
+		.setCustomId("steal")
+		.setLabel("Let's steal!")
 		.setStyle("SUCCESS");
 
 	if (settings.interactions.buttonEmoji) {
@@ -147,9 +147,9 @@ export default async function handleInteraction(interaction: Discord.Interaction
 				partner.id === interaction.client.user?.id
 			) {
 				await acceptation.reply({
-					content: `This is your invitation! You can't bake with yourself, someone else has to accept it.`,
+					content: `This is your invitation! You can't go on a heist with yourself, someone else has to accept it.`,
 					ephemeral: true,
-				}).catch(handleBuggedInteractions(acceptation.channel, `telling ${acceptation.user.tag} they can't bake with themselves`));
+				}).catch(handleBuggedInteractions(acceptation.channel, `telling ${acceptation.user.tag} they can't STEAL with themselves`));
 
 				return false;
 			}
@@ -158,9 +158,9 @@ export default async function handleInteraction(interaction: Discord.Interaction
 
 			if (inviterAccount.received.includes(partner.id)) {
 				await acceptation.reply({
-					content: `You must wait **${humanTimeUntilReset()}** (<t:${nextReset().toSeconds()}>) before baking with **${inviter.displayName}** again.`,
+					content: `You must wait **${humanTimeUntilReset()}** (<t:${nextReset().toSeconds()}>) before going on a heist with **${inviter.displayName}** again.`,
 					ephemeral: true,
-				}).catch(handleBuggedInteractions(acceptation.channel, `telling ${acceptation.user.tag} they must wait before baking with someone`));
+				}).catch(handleBuggedInteractions(acceptation.channel, `telling ${acceptation.user.tag} they must wait before STEALING with someone`));
 
 				return false;
 			}
@@ -175,13 +175,13 @@ export default async function handleInteraction(interaction: Discord.Interaction
 					embeds: [{
 						color: 15747399,
 						author: {
-							name: `${inviter.displayName} did not find anyone to bake with ;_;`,
+							name: `${inviter.displayName} did not find anyone to go on a heist with ;_;`,
 							icon_url: inviter.user.displayAvatarURL({
 								dynamic: true,
 							}) // eslint-disable-line camelcase
 						},
 						footer: {
-							text: "If you want to bake with them, you should mention them to say so!"
+							text: "If you want to go on a heist with them, you should mention them to say so!"
 						}
 					}],
 					components: [],
@@ -206,13 +206,13 @@ export default async function handleInteraction(interaction: Discord.Interaction
 	cooldowns.delete(inviter.id);
 	updateTotal();
 
-	embed.author!.name = "Baking successful!";
+	embed.author!.name = "Stealing successful!";
 	embed.color = 4437377;
-	embed.title = `${inviter.displayName} and ${partner.displayName} have baked a ${pluralCurrency(1)}!`;
+	embed.title = `${inviter.displayName} and ${partner.displayName} have stolen a ${pluralCurrency(1)}!`;
 	embed.description =
 		`Both of you have received **${formatCurrency(1)}.**\n\n` +
-		`You will be able to bake again together in **${humanTimeUntilReset()}** on <t:${nextReset().toSeconds()}>.`;
-	embed.footer!.text = pluralFooter(totalBaked);
+		`You will be able to go on a heist again together in **${humanTimeUntilReset()}** on <t:${nextReset().toSeconds()}>.`;
+	embed.footer!.text = pluralFooter(totalBaked+2);
 	embed.thumbnail!.url = settings.interactions.successThumbnail;
 	embed.fields = [];
 
